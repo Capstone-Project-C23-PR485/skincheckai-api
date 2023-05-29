@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// BASIC USER FUNCTION
+model User {
+  uid           String          @id
+  birthDate     DateTime
+  email         String          @unique
+  photo         String
+  AnalysisLog   AnalysisLog[]
+  SkinCondition SkinCondition[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  deletedAt DateTime @default(now())
+}
+
+model SkinCondition {
+  uid       String @id
+  owner     User   @relation(fields: [uid], references: [uid])
+  skinType  String
+  condition String
+}
+
+model AnalysisLog {
+  id    Int    @id @default(autoincrement())
+  uid   String
+  owner User   @relation(fields: [uid], references: [uid])
+
+  skinScore Int
+
+  acneResult String
+  acneCount  Int
+
+  wrinkleResult String
+  wrinkleCount  Int
+
+  poreResult String
+  poreCount  Int
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  deletedAt DateTime?
+}
+
+// PRODUCT
+model skinCareProduct {
+  id          Int     @id @default(autoincrement())
+  name        String
+  brand       String
+  type        String
+  price       Decimal @db.Money
+  rank        String
+  skinType    String
+  ingredients String
+  image       String
+}
+
+// TODO: create enumeration for type, rank, and skinType
+
+// QUEST
+model Quest {
+  id           Int    @id @default(autoincrement())
+  dayOfTheWeek Int
+  title        String
+  description  String
+}
+
+// Articles
+model Article {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  image       String
+}
