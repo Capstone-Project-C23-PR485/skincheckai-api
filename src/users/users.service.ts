@@ -1,42 +1,46 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
+import { FirebaseUserDTO } from './dto/firebase-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
-  }
-
-  findOne(uid: string) {
-    return this.prisma.user.findFirst({ where: { uid: uid } });
-  }
-
-  update(uid: string, updateUserDto: UpdateUserDto) {
-    return this.prisma.user.upsert({
+  get(firebaseUser: FirebaseUserDTO) {
+    let user = this.prisma.user.findFirst({
       where: {
-        uid: uid,
-      },
-      update: {
-        ...updateUserDto,
-      },
-      create: {
-        uid: uid,
-        ...updateUserDto,
+        user_id: firebaseUser.user_id,
       },
     });
+
+    if (!user) {
+      user = this.prisma.user.create({
+        data: {
+          user_id: firebaseUser.user_id,
+          name: firebaseUser.name,
+          email: firebaseUser.email,
+          picture: firebaseUser.picture,
+        },
+      });
+    }
+
+    return user;
   }
 
-  remove(uid: string) {
-    return this.prisma.user.update({
+  update(firebaseUser: FirebaseUserDTO, updateUserDTO: UpdateUserDto) {
+    return this.prisma.user.upsert({
       where: {
-        uid: uid,
+        user_id: firebaseUser.user_id,
       },
-      data: {
-        deletedAt: new Date(), // g yakin, perlu dicek
+      update: {
+        name: updateUserDTO.name,
+        birthDate: updateUserDTO.birthDate,
+        skinCondition: updateUserDTO.skinCondition,
+        skinType: updateUserDTO.skinType,
+      },
+      create: {
+        ...firebaseUser,
       },
     });
   }

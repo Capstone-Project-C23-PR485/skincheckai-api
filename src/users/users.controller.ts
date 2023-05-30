@@ -1,37 +1,25 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Body, Patch, UseGuards, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
+import { User } from 'src/user/user.decorator';
+import { FirebaseUserDTO } from './dto/firebase-user.dto';
 
 @Controller('users')
+@UseGuards(FirebaseAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  getProfile() {
-    return this.usersService.findAll();
+  async get(@User() firebaseUser: FirebaseUserDTO) {
+    return this.usersService.get(firebaseUser);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @Patch()
+  async update(
+    @User() firebaseUser: FirebaseUserDTO,
+    @Body() updateData: UpdateUserDto,
+  ) {
+    return this.usersService.update(firebaseUser, updateData);
   }
 }
