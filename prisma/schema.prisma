@@ -12,10 +12,16 @@ datasource db {
 
 // BASIC USER FUNCTION
 model User {
-  uid           String          @id
-  email         String          @unique
-  birthDate     DateTime
-  photo         String
+  // Get from firebase google login
+  user_id String @id
+  name    String
+  email   String @unique
+  picture String
+
+  // Not yet
+  birthDate DateTime?
+
+  // Filled
   AnalysisLog   AnalysisLog[]
   SkinCondition SkinCondition[]
 
@@ -25,16 +31,16 @@ model User {
 }
 
 model SkinCondition {
-  uid       String @id
-  owner     User   @relation(fields: [uid], references: [uid])
+  user_id   String @id
+  owner     User   @relation(fields: [user_id], references: [user_id])
   skinType  String
   condition String
 }
 
 model AnalysisLog {
-  id    Int    @id @default(autoincrement())
-  uid   String
-  owner User   @relation(fields: [uid], references: [uid])
+  id      Int    @id @default(autoincrement())
+  user_id String
+  owner   User   @relation(fields: [user_id], references: [user_id])
 
   skinScore Int
 
