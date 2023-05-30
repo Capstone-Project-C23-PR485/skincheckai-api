@@ -21,20 +21,16 @@ model User {
   // Not yet
   birthDate DateTime?
 
+  // SkinCondition
+  skinType      String?
+  skinCondition String?
+
   // Filled
-  AnalysisLog   AnalysisLog[]
-  SkinCondition SkinCondition[]
+  AnalysisLog AnalysisLog[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now())
   deletedAt DateTime?
-}
-
-model SkinCondition {
-  user_id   String @id
-  owner     User   @relation(fields: [user_id], references: [user_id])
-  skinType  String
-  condition String
 }
 
 model AnalysisLog {
