@@ -7,15 +7,15 @@ import { FirebaseUserDTO } from './dto/firebase-user.dto';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  get(firebaseUser: FirebaseUserDTO) {
-    let user = this.prisma.user.findFirst({
+  async get(firebaseUser: FirebaseUserDTO) {
+    let user = await this.prisma.user.findFirst({
       where: {
         user_id: firebaseUser.user_id,
       },
     });
 
     if (!user) {
-      user = this.prisma.user.create({
+      user = await this.prisma.user.create({
         data: {
           user_id: firebaseUser.user_id,
           name: firebaseUser.name,
@@ -25,10 +25,12 @@ export class UsersService {
       });
     }
 
+    console.log(user);
+
     return user;
   }
 
-  update(firebaseUser: FirebaseUserDTO, updateUserDTO: UpdateUserDto) {
+  async update(firebaseUser: FirebaseUserDTO, updateUserDTO: UpdateUserDto) {
     return this.prisma.user.upsert({
       where: {
         user_id: firebaseUser.user_id,
@@ -40,7 +42,10 @@ export class UsersService {
         skinType: updateUserDTO.skinType,
       },
       create: {
-        ...firebaseUser,
+        user_id: firebaseUser.user_id,
+        name: firebaseUser.name,
+        email: firebaseUser.email,
+        picture: firebaseUser.picture,
       },
     });
   }

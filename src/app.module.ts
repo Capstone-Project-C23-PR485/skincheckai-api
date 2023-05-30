@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { FirebaseAuthModule } from '@whitecloak/nestjs-passport-firebase';
 import { ConfigModule } from '@nestjs/config';
+import { PrismaService } from './prisma.service';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { ConfigModule } from '@nestjs/config';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}
