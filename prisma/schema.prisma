@@ -34,24 +34,25 @@ model User {
 }
 
 model AnalysisLog {
-  id      Int    @id @default(autoincrement())
-  user_id String
-  owner   User   @relation(fields: [user_id], references: [user_id])
-
-  skinScore Int
-
-  acneResult String
-  acneCount  Int
-
-  wrinkleResult String
-  wrinkleCount  Int
-
-  poreResult String
-  poreCount  Int
+  id             Int              @id @default(autoincrement())
+  user_id        String
+  owner          User             @relation(fields: [user_id], references: [user_id])
+  skinScore      Int
+  analysisResult AnalysisResult[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now())
   deletedAt DateTime?
+}
+
+model AnalysisResult {
+  id            Int         @id @default(autoincrement())
+  picture       String
+  problemCount  String
+  category      String
+  modelResult   Json
+  AnalysisLog   AnalysisLog @relation(fields: [analysisLogId], references: [id])
+  analysisLogId Int
 }
 
 // PRODUCT
@@ -66,8 +67,6 @@ model skinCareProduct {
   ingredients String
   image       String
 }
-
-// TODO: create enumeration for type, rank, and skinType
 
 // QUEST
 model Quest {
