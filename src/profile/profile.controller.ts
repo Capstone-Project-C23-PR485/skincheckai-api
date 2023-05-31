@@ -25,6 +25,7 @@ export class ProfileController {
     @FirebaseAuthUser() firebaseUser: FirebaseUserDTO,
     @Body() updateData: UpdateProfileDto,
   ) {
+    updateData.birthDate = new Date(updateData.birthDate);
     return this.usersService.update(firebaseUser, updateData);
   }
 }

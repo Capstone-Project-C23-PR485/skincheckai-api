@@ -11,11 +11,6 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOne(+id);
-  }
-
   @Get('/recommendation')
   @ApiQuery({ name: 'skinType' })
   @ApiQuery({ name: 'skinCondition' })
@@ -24,5 +19,10 @@ export class ProductsController {
     @Query('skinCondition') skinCondition: string,
   ) {
     return this.productsService.getRecommendation(skinType, skinCondition);
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.productsService.findOne(+id);
   }
 }
