@@ -38,6 +38,7 @@ model AnalysisLog {
   user_id        String
   owner          User             @relation(fields: [user_id], references: [user_id])
   skinScore      Int              @default(100)
+  picture        String
   analysisResult AnalysisResult[]
 
   createdAt DateTime  @default(now())
