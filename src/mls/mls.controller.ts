@@ -1,20 +1,34 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  ParseFilePipeBuilder,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { MlsService } from './mls.service';
 import { ReportAnalysisDto } from './dto/report-analysis.dto';
-import { RequestAnalysisDto } from './dto/request-analysis.dto';
 import { FirebaseUserDTO } from 'src/firebase-user.dto';
 import { FirebaseAuthUser } from 'src/firebase-user.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
 
 @Controller('mls')
 export class MlsController {
   constructor(private readonly mlsService: MlsService) {}
 
   @Post('request-analyses')
+  @UseInterceptors(FileInterceptor('image'))
   requestAnalyses(
     @FirebaseAuthUser() user: FirebaseUserDTO,
-    @Body() body: RequestAnalysisDto,
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({ fileType: 'image/*' })
+        .build({ fileIsRequired: true }),
+    )
+    image: Express.Multer.File,
   ) {
-    return this.mlsService.requestAnalyses(user.user_id, body);
+    return this.mlsService.requestAnalyses(user.user_id, image);
   }
 
   @Post('report-analyses')

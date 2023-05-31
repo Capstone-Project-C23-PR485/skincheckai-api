@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { RequestAnalysisDto } from './dto/request-analysis.dto';
 import { ReportAnalysisDto } from './dto/report-analysis.dto';
 import { PrismaService } from 'src/prisma.service';
+import { Express } from 'express';
 
 @Injectable()
 export class MlsService {
   constructor(private prisma: PrismaService) {}
 
-  async requestAnalyses(user_id: string, body: RequestAnalysisDto) {
+  async requestAnalyses(user_id: string, image: Express.Multer.File) {
     // create a fileName using user_id and current timestamp
+
     const fileName = `${user_id}-${Date.now()}`;
 
     const analysis = await this.prisma.analysisLog.create({
