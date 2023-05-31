@@ -9,6 +9,8 @@ import { ProductsModule } from './products/products.module';
 import { MlsModule } from './mls/mls.module';
 import { LogsModule } from './logs/logs.module';
 import { ArticlesModule } from './articles/articles.module';
+import { StorageService } from './storage/storage.service';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -22,8 +24,9 @@ import { ArticlesModule } from './articles/articles.module';
     MlsModule,
     LogsModule,
     ArticlesModule,
+    StorageModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, PrismaService, StorageService],
 })
 export class AppModule {}
