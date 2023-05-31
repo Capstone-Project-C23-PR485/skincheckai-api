@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
 import { ProductsModule } from './products/products.module';
 import { MlsModule } from './mls/mls.module';
+import { LogsModule } from './logs/logs.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { MlsModule } from './mls/mls.module';
     UsersModule,
     ProductsModule,
     MlsModule,
+    LogsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
