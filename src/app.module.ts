@@ -8,6 +8,7 @@ import { PrismaService } from './prisma.service';
 import { ProductsModule } from './products/products.module';
 import { MlsModule } from './mls/mls.module';
 import { LogsModule } from './logs/logs.module';
+import { ArticlesModule } from './articles/articles.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { LogsModule } from './logs/logs.module';
     ProductsModule,
     MlsModule,
     LogsModule,
+    ArticlesModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
