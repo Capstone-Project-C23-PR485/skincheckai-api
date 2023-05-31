@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+import { ProfileModule } from './profile/profile.module';
 import { FirebaseAuthModule } from '@whitecloak/nestjs-passport-firebase';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
@@ -16,7 +16,7 @@ import { LogsModule } from './logs/logs.module';
       audience: 'testing-auth-with-node',
       issuer: 'https://securetoken.google.com/testing-auth-with-node',
     }),
-    UsersModule,
+    ProfileModule,
     ProductsModule,
     MlsModule,
     LogsModule,

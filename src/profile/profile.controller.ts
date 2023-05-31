@@ -1,6 +1,6 @@
 import { Controller, Get, Body, Patch, UseGuards } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { ProfileService } from './profile.service';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
 import { FirebaseUserDTO } from '../firebase-user.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -10,8 +10,8 @@ import { FirebaseAuthUser } from 'src/firebase-user.decorator';
 @ApiTags('User')
 @Controller('profile')
 @UseGuards(FirebaseAuthGuard)
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+export class ProfileController {
+  constructor(private readonly usersService: ProfileService) {}
 
   @Get()
   @ApiOperation({ summary: 'Getting user profile' })
@@ -23,7 +23,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Updating user profile' })
   async update(
     @FirebaseAuthUser() firebaseUser: FirebaseUserDTO,
-    @Body() updateData: UpdateUserDto,
+    @Body() updateData: UpdateProfileDto,
   ) {
     return this.usersService.update(firebaseUser, updateData);
   }

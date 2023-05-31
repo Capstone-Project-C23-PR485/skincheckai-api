@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 import { PrismaService } from 'src/prisma.service';
 import { FirebaseUserDTO } from '../firebase-user.dto';
 
 @Injectable()
-export class UsersService {
+export class ProfileService {
   constructor(private prisma: PrismaService) {}
 
   async get(firebaseUser: FirebaseUserDTO) {
@@ -28,7 +28,7 @@ export class UsersService {
     return user;
   }
 
-  async update(firebaseUser: FirebaseUserDTO, updateUserDTO: UpdateUserDto) {
+  async update(firebaseUser: FirebaseUserDTO, updateUserDTO: UpdateProfileDto) {
     return this.prisma.user.upsert({
       where: {
         user_id: firebaseUser.user_id,
