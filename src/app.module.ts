@@ -6,6 +6,7 @@ import { FirebaseAuthModule } from '@whitecloak/nestjs-passport-firebase';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
 import { ProductsModule } from './products/products.module';
+import { MlsModule } from './mls/mls.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ProductsModule } from './products/products.module';
     }),
     UsersModule,
     ProductsModule,
+    MlsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
