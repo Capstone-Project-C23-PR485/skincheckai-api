@@ -1,8 +1,10 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ApiQuery } from '@nestjs/swagger';
+import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
 
 @Controller('products')
+@UseGuards(FirebaseAuthGuard)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 

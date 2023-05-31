@@ -4,6 +4,7 @@ import {
   ParseFilePipeBuilder,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { MlsService } from './mls.service';
@@ -12,8 +13,10 @@ import { FirebaseUserDTO } from 'src/firebase-user.dto';
 import { FirebaseAuthUser } from 'src/firebase-user.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
+import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
 
-@Controller('mls')
+@Controller()
+@UseGuards(FirebaseAuthGuard)
 export class MlsController {
   constructor(private readonly mlsService: MlsService) {}
 
