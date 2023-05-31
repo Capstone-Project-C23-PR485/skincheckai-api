@@ -28,6 +28,7 @@ export class MlsController {
     )
     image: Express.Multer.File,
   ) {
+    // upload image to storage
     return this.mlsService.requestAnalyses(user.user_id, image);
   }
 
