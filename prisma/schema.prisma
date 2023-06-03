@@ -55,16 +55,15 @@ model AnalysisResult {
 
 // PRODUCT
 model skinCareProduct {
-  id            Int     @id @default(autoincrement())
-  name          String
-  brand         String
-  type          String
-  price         Decimal @db.Money
-  rank          String
-  skinType      String
-  skinCondition String
-  ingredients   String
-  image         String
+  id          Int     @id @default(autoincrement())
+  name        String
+  brand       String
+  type        String
+  price       Decimal @db.Money
+  rank        String
+  skinType    String
+  ingredients String
+  image       String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
