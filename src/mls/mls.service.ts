@@ -29,7 +29,13 @@ export class MlsService {
       [{ name: 'analysisId', value: analysis.id.toString() }],
     );
 
-    return analysis.id;
+    return {
+      status: 200,
+      message: 'Success',
+      data: {
+        analysisId: analysis.id,
+      },
+    };
   }
 
   async reportAnalyses(body: ReportAnalysisDto) {
@@ -43,10 +49,10 @@ export class MlsService {
       },
     });
 
-    // return status success and OK as the message
     return {
       status: 'success',
       message: 'OK',
+      data: [],
     };
   }
 }
