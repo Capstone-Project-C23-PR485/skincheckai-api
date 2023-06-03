@@ -29,7 +29,7 @@ export class MlsService {
     );
 
     return {
-      status: 200,
+      statusCode: 200,
       message: 'Success',
       data: {
         analysisId: analysis.id,
@@ -49,7 +49,7 @@ export class MlsService {
     });
 
     return {
-      status: 'success',
+      statusCode: 'success',
       message: 'OK',
       data: [],
     };

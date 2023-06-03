@@ -27,7 +27,7 @@ export class LogsService {
     });
 
     return {
-      status: 200,
+      statusCode: 200,
       message: 'Success',
       data: data,
     };
@@ -56,7 +56,7 @@ export class LogsService {
     });
 
     return {
-      status: 200,
+      statusCode: 200,
       message:
         data.analysisResult.length < 3 ? 'Success' : 'Data is still processed',
       data: data,

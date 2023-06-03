@@ -9,7 +9,7 @@ export class ProductsService {
     const data = await this.prisma.skinCareProduct.findMany();
 
     return {
-      status: 200,
+      statusCode: 200,
       message: 'Success',
       data: data,
     };
@@ -23,7 +23,7 @@ export class ProductsService {
     });
 
     return {
-      status: 200,
+      statusCode: 200,
       message: 'Success',
       data: data,
     };
@@ -40,7 +40,7 @@ export class ProductsService {
     });
 
     return {
-      status: 200,
+      statusCode: 200,
       message: 'Success',
       data: data,
     };

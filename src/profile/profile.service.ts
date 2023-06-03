@@ -26,7 +26,7 @@ export class ProfileService {
     }
 
     return {
-      status: 200,
+      statusCode: 200,
       message: 'Success',
       data: user,
     };
@@ -51,7 +51,7 @@ export class ProfileService {
     });
 
     return {
-      status: 200,
+      statusCode: 200,
       message: 'Data successfully updated',
       data: data,
     };
