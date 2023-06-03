@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { ReportAnalysisDto } from './dto/report-analysis.dto';
 import { Express } from 'express';
 import { StorageService } from 'src/storage/storage.service';
@@ -32,12 +32,12 @@ export class MlsService {
       statusCode: 200,
       message: 'Success',
       data: {
-        analysisId: analysis.id,
+        logId: analysis.id,
       },
     };
   }
 
-  async reportAnalyses(body: ReportAnalysisDto) {
+  async reportAnalyses(@Body() body: ReportAnalysisDto) {
     await this.prisma.analysisResult.create({
       data: {
         analysisLogId: body.id,

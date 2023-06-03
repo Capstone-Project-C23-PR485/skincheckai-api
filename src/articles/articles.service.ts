@@ -6,7 +6,7 @@ export class ArticlesService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    const data = this.prisma.article.findMany({
+    const data = await this.prisma.article.findMany({
       select: {
         id: true,
         title: true,
