@@ -5,24 +5,44 @@ import { PrismaService } from 'src/prisma.service';
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
-  findAll() {
-    return this.prisma.skinCareProduct.findMany();
+  async findAll() {
+    const data = await this.prisma.skinCareProduct.findMany();
+
+    return {
+      status: 200,
+      message: 'Success',
+      data: data,
+    };
   }
 
-  findOne(id: number) {
-    return this.prisma.skinCareProduct.findUnique({
+  async findOne(id: number) {
+    const data = await this.prisma.skinCareProduct.findUnique({
       where: {
         id: id,
       },
     });
+
+    return {
+      status: 200,
+      message: 'Success',
+      data: data,
+    };
   }
 
-  getRecommendation(skinType: string, skinCondition: string) {
-    return this.prisma.skinCareProduct.findMany({
+  async getRecommendation(skinType: string) {
+    const data = await this.prisma.skinCareProduct.findMany({
       where: {
         skinType: skinType,
-        skinCondition: skinCondition,
       },
+      // TODO: Add orderby and else
+
+      take: 3,
     });
+
+    return {
+      status: 200,
+      message: 'Success',
+      data: data,
+    };
   }
 }
