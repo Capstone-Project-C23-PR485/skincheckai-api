@@ -6,14 +6,39 @@ export class ArticlesService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.article.findMany();
+    const data = this.prisma.article.findMany({
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        image: true,
+      },
+    });
+
+    return {
+      status: 200,
+      message: 'Success',
+      data: data,
+    };
   }
 
   async findOne(id: number) {
-    return this.prisma.article.findUnique({
+    const data = this.prisma.article.findUnique({
       where: {
         id: id,
       },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        image: true,
+      },
     });
+
+    return {
+      status: 200,
+      message: 'Success',
+      data: data,
+    };
   }
 }
