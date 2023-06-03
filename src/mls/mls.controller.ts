@@ -15,7 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
 
-@Controller()
+@Controller('machine-learning')
 @UseGuards(FirebaseAuthGuard)
 export class MlsController {
   constructor(private readonly mlsService: MlsService) {}
