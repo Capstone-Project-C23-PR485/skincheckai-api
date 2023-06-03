@@ -18,19 +18,14 @@ model User {
   email   String @unique
   picture String
 
-  // Not yet
+  // Data that needs to be filled
   birthDate DateTime?
+  skinType  String?
 
-  // SkinCondition
-  skinType      String?
-  skinCondition String?
-
-  // Filled
   AnalysisLog AnalysisLog[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now())
-  deletedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model AnalysisLog {
@@ -41,9 +36,8 @@ model AnalysisLog {
   picture        String
   analysisResult AnalysisResult[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now())
-  deletedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model AnalysisResult {
@@ -54,6 +48,9 @@ model AnalysisResult {
   modelResult   Json
   AnalysisLog   AnalysisLog @relation(fields: [analysisLogId], references: [id])
   analysisLogId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // PRODUCT
@@ -68,6 +65,9 @@ model skinCareProduct {
   skinCondition String
   ingredients   String
   image         String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // QUEST
@@ -76,6 +76,9 @@ model Quest {
   dayOfTheWeek Int
   title        String
   description  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Articles
@@ -84,4 +87,7 @@ model Article {
   title       String
   description String
   image       String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
