@@ -11,6 +11,7 @@ import { LogsModule } from './analysislogs/logs.module';
 import { ArticlesModule } from './articles/articles.module';
 import { StorageService } from './storage/storage.service';
 import { StorageModule } from './storage/storage.module';
+import { UtilsModule } from './utils/utils.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { StorageModule } from './storage/storage.module';
     LogsModule,
     ArticlesModule,
     StorageModule,
+    UtilsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, StorageService],

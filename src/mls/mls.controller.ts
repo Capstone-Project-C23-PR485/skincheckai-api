@@ -9,11 +9,11 @@ import {
 } from '@nestjs/common';
 import { MlsService } from './mls.service';
 import { ReportAnalysisDto } from './dto/report-analysis.dto';
-import { FirebaseUserDTO } from 'src/firebase-user.dto';
-import { FirebaseAuthUser } from 'src/firebase-user.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
+import { FirebaseAuthUser } from 'src/utils/firebase-user.decorator';
+import { FirebaseUserDTO } from 'src/utils/firebase-user.dto';
 
 @Controller('machine-learning')
 @UseGuards(FirebaseAuthGuard)

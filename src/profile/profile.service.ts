@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { PrismaService } from 'src/prisma.service';
-import { FirebaseUserDTO } from '../firebase-user.dto';
+import { PrismaService } from 'src/utils/prisma.service';
+import { FirebaseUserDTO } from 'src/utils/firebase-user.dto';
 
 @Injectable()
 export class ProfileService {
