@@ -6,26 +6,60 @@ export class LogsService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(user_id: string) {
-    return this.prisma.analysisLog.findMany({
-      // TODO: format the result
-      include: {
-        analysisResult: true,
-      },
+    const data = await this.prisma.analysisLog.findMany({
       where: {
         user_id: user_id,
       },
+      select: {
+        id: true,
+        skinScore: true,
+        createdAt: true,
+        picture: true,
+        analysisResult: {
+          select: {
+            picture: true,
+            problemCount: true,
+            category: true,
+            modelResult: true,
+          },
+        },
+      },
     });
+
+    return {
+      status: 200,
+      message: 'Success',
+      data: data,
+    };
   }
 
   async findOne(id: number, user_id: string) {
-    return this.prisma.analysisLog.findFirst({
+    const data = await this.prisma.analysisLog.findFirst({
       where: {
         id: id,
         user_id: user_id,
       },
-      include: {
-        analysisResult: true,
+      select: {
+        id: true,
+        skinScore: true,
+        createdAt: true,
+        picture: true,
+        analysisResult: {
+          select: {
+            picture: true,
+            problemCount: true,
+            category: true,
+            modelResult: true,
+          },
+        },
       },
     });
+
+    return {
+      status: 200,
+      message:
+        data.analysisResult.length < 3 ? 'Success' : 'Data is still processed',
+      data: data,
+    };
   }
 }
