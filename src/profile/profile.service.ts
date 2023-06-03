@@ -25,18 +25,21 @@ export class ProfileService {
       });
     }
 
-    return user;
+    return {
+      status: 200,
+      message: 'Success',
+      data: user,
+    };
   }
 
   async update(firebaseUser: FirebaseUserDTO, updateUserDTO: UpdateProfileDto) {
-    return this.prisma.user.upsert({
+    const data = await this.prisma.user.upsert({
       where: {
         user_id: firebaseUser.user_id,
       },
       update: {
         name: updateUserDTO.name,
         birthDate: updateUserDTO.birthDate,
-        skinCondition: updateUserDTO.skinCondition,
         skinType: updateUserDTO.skinType,
       },
       create: {
@@ -46,5 +49,11 @@ export class ProfileService {
         picture: firebaseUser.picture,
       },
     });
+
+    return {
+      status: 200,
+      message: 'Data successfully updated',
+      data: data,
+    };
   }
 }
