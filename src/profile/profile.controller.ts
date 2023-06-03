@@ -2,9 +2,9 @@ import { Controller, Get, Body, Patch, UseGuards } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
-import { FirebaseUserDTO } from '../firebase-user.dto';
+import { FirebaseUserDTO } from '../utils/firebase-user.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { FirebaseAuthUser } from 'src/firebase-user.decorator';
+import { FirebaseAuthUser } from 'src/utils/firebase-user.decorator';
 
 @ApiBearerAuth()
 @ApiTags('User')

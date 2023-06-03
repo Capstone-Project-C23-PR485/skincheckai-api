@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 import { LogsService } from './logs.service';
 import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
-import { FirebaseUserDTO } from 'src/firebase-user.dto';
-import { FirebaseAuthUser } from 'src/firebase-user.decorator';
+import { FirebaseUserDTO } from 'src/utils/firebase-user.dto';
+import { FirebaseAuthUser } from 'src/utils/firebase-user.decorator';
 
 @Controller('logs')
 @UseGuards(FirebaseAuthGuard)

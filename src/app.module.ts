@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { ProfileModule } from './profile/profile.module';
 import { FirebaseAuthModule } from '@whitecloak/nestjs-passport-firebase';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaService } from './prisma.service';
+import { PrismaService } from './utils/prisma.service';
 import { ProductsModule } from './products/products.module';
 import { MlsModule } from './mls/mls.module';
 import { LogsModule } from './analysislogs/logs.module';
