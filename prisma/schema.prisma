@@ -61,9 +61,14 @@ model skinCareProduct {
   type        String
   price       Decimal @db.Money
   rank        String
-  skinType    String
   ingredients String
   image       String
+
+  // skintype
+  oily        Boolean
+  dry         Boolean
+  sensitive   Boolean
+  combination Boolean
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
