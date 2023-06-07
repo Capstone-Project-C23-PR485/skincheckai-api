@@ -8,7 +8,7 @@ COPY package.json yarn.lock ./
 COPY prisma ./prisma/
 
 # run yarn install
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 # Bundle app source
 COPY . ./
@@ -21,13 +21,7 @@ FROM node:18-alpine
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/prisma ./prisma
-
-# install prisma globally
-RUN yarn global add prisma
-
-EXPOSE 3000
+COPY --from=builder /app/dist/src ./dist
 
 # run the app
-CMD ["node", "dist/main"]
+CMD ["node", "dist/main.js"]
