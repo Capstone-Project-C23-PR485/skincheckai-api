@@ -9,13 +9,16 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  @ApiQuery({ name: 'productType' })
+  findAll(
+    @Query('productType')
+    productType: 'all' | 'moisturizer' | 'sunscreen' | 'facewash' | 'serum',
+  ) {
+    return this.productsService.findAll(productType);
   }
 
   @Get('/recommendation')
   @ApiQuery({ name: 'skinType' })
-  @ApiQuery({ name: 'skinCondition' })
   findRecommendation(
     @Query('skinType') skinType: 'oily' | 'dry' | 'combination' | 'sensitive',
   ) {

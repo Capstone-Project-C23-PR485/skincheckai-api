@@ -5,8 +5,19 @@ import { PrismaService } from 'src/utils/prisma.service';
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
-    const data = await this.prisma.skinCareProduct.findMany();
+  async findAll(
+    productType: 'moisturizer' | 'sunscreen' | 'facewash' | 'serum' | 'all',
+  ) {
+    let data;
+    if (productType !== 'all') {
+      data = await this.prisma.skinCareProduct.findMany();
+    } else {
+      data = await this.prisma.skinCareProduct.findMany({
+        where: {
+          type: productType,
+        },
+      });
+    }
 
     return {
       statusCode: 200,
@@ -32,16 +43,22 @@ export class ProductsService {
   async getRecommendation(
     skinType: 'oily' | 'dry' | 'combination' | 'sensitive',
   ) {
-    const data = await this.prisma.skinCareProduct.findMany({
-      where: {
-        [skinType]: true,
-      },
+    const productType = ['moisturizer', 'sunscreen', 'facewash', 'serum'];
+    const data = {};
+    for (let i = 0; i < productType.length; i++) {
+      const product = await this.prisma.skinCareProduct.findMany({
+        where: {
+          [skinType]: true,
+          type: productType[i],
+        },
+        take: 3,
+        orderBy: {
+          rank: 'asc',
+        },
+      });
 
-      take: 5,
-      orderBy: {
-        rank: 'asc',
-      },
-    });
+      data[productType[i]] = product;
+    }
 
     return {
       statusCode: 200,
