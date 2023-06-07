@@ -30,4 +30,4 @@ RUN yarn global add prisma
 EXPOSE 3000
 
 # run the app
-CMD ["yarn", "migrate:start:prod"]
+CMD ["node", "dist/main"]
