@@ -39,7 +39,7 @@ export class ProductsService {
 
       take: 5,
       orderBy: {
-        rank: 'desc',
+        rank: 'asc',
       },
     });
 
