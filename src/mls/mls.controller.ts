@@ -16,11 +16,11 @@ import { FirebaseAuthUser } from 'src/utils/firebase-user.decorator';
 import { FirebaseUserDTO } from 'src/utils/firebase-user.dto';
 
 @Controller('machine-learning')
-@UseGuards(FirebaseAuthGuard)
 export class MlsController {
   constructor(private readonly mlsService: MlsService) {}
 
   @Post('request-analyses')
+  @UseGuards(FirebaseAuthGuard)
   @UseInterceptors(FileInterceptor('image'))
   requestAnalyses(
     @FirebaseAuthUser() user: FirebaseUserDTO,
