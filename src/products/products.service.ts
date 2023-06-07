@@ -10,7 +10,7 @@ export class ProductsService {
 
     return {
       statusCode: 200,
-      message: 'Success',
+      message: 'Success finding all products ',
       data: data,
     };
   }
@@ -24,7 +24,7 @@ export class ProductsService {
 
     return {
       statusCode: 200,
-      message: 'Success',
+      message: 'Success finding one product',
       data: data,
     };
   }
@@ -38,11 +38,14 @@ export class ProductsService {
       },
 
       take: 5,
+      orderBy: {
+        rank: 'desc',
+      },
     });
 
     return {
       statusCode: 200,
-      message: 'Success',
+      message: 'Success finding recommendation for skin type ' + skinType,
       data: data,
     };
   }

@@ -4,7 +4,7 @@ import { ApiQuery } from '@nestjs/swagger';
 import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
 
 @Controller('products')
-@UseGuards(FirebaseAuthGuard)
+// @UseGuards(FirebaseAuthGuard)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
