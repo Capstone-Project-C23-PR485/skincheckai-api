@@ -9,7 +9,8 @@ export class ProductsService {
     productType: 'moisturizer' | 'sunscreen' | 'facewash' | 'serum' | 'all',
   ) {
     let data;
-    if (productType !== 'all') {
+
+    if (productType === 'all') {
       data = await this.prisma.skinCareProduct.findMany();
     } else {
       data = await this.prisma.skinCareProduct.findMany({
@@ -21,7 +22,7 @@ export class ProductsService {
 
     return {
       statusCode: 200,
-      message: 'Success finding all products ',
+      message: 'Success finding products ',
       data: data,
     };
   }

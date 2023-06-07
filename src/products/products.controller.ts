@@ -1,4 +1,11 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ApiQuery } from '@nestjs/swagger';
 import { FirebaseAuthGuard } from '@whitecloak/nestjs-passport-firebase';
