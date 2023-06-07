@@ -29,14 +29,15 @@ export class ProductsService {
     };
   }
 
-  async getRecommendation(skinType: string) {
+  async getRecommendation(
+    skinType: 'oily' | 'dry' | 'combination' | 'sensitive',
+  ) {
     const data = await this.prisma.skinCareProduct.findMany({
       where: {
-        skinType: skinType,
+        [skinType]: true,
       },
-      // TODO: Add orderby and else
 
-      take: 3,
+      take: 5,
     });
 
     return {

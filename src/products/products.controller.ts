@@ -16,7 +16,9 @@ export class ProductsController {
   @Get('/recommendation')
   @ApiQuery({ name: 'skinType' })
   @ApiQuery({ name: 'skinCondition' })
-  findRecommendation(@Query('skinType') skinType: string) {
+  findRecommendation(
+    @Query('skinType') skinType: 'oily' | 'dry' | 'combination' | 'sensitive',
+  ) {
     return this.productsService.getRecommendation(skinType);
   }
 
