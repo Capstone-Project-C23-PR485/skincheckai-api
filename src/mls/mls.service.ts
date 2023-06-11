@@ -1,4 +1,4 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ReportAnalysisDto } from './dto/report-analysis.dto';
 import { Express } from 'express';
 import { StorageService } from 'src/storage/storage.service';
@@ -14,20 +14,24 @@ export class MlsService {
 
   async requestAnalyses(user_id: string, image: Express.Multer.File) {
     const fileName = uuidv4();
+    const originalImageName = image.filename;
+    const fileExtension = originalImageName.split('.').pop();
+    const storagePath =
+      'https://storage.googleapis.com/public-picture-media-bucket/';
+
+    await this.storageService.save(
+      'images_uploaded/' + fileName + '.' + fileExtension,
+      image.mimetype,
+      image.buffer,
+      [],
+    );
 
     const analysis = await this.prisma.analysisLog.create({
       data: {
         user_id: user_id,
-        picture: fileName,
+        picture: storagePath + fileName + '.' + fileExtension,
       },
     });
-
-    await this.storageService.save(
-      'images_uploaded/' + fileName,
-      image.mimetype,
-      image.buffer,
-      [{ name: 'analysisId', value: analysis.id.toString() }],
-    );
 
     return {
       statusCode: 200,
