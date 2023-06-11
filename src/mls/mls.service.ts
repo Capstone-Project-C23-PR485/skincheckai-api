@@ -17,7 +17,7 @@ export class MlsService {
     const originalImageName = image.originalname;
     const fileExtension = originalImageName.split('.').pop();
     const storagePath =
-      'https://storage.googleapis.com/public-picture-media-bucket/';
+      'https://storage.googleapis.com/public-picture-media-bucket/images_uploaded/';
 
     await this.storageService.save(
       'images_uploaded/' + fileName + '.' + fileExtension,
