@@ -14,7 +14,7 @@ export class MlsService {
 
   async requestAnalyses(user_id: string, image: Express.Multer.File) {
     const fileName = uuidv4();
-    const originalImageName = image.filename;
+    const originalImageName = image.originalname;
     const fileExtension = originalImageName.split('.').pop();
     const storagePath =
       'https://storage.googleapis.com/public-picture-media-bucket/';
