@@ -3,6 +3,7 @@ import { ReportAnalysisDto } from './dto/report-analysis.dto';
 import { Express } from 'express';
 import { StorageService } from 'src/storage/storage.service';
 import { PrismaService } from 'src/utils/prisma.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class MlsService {
@@ -12,7 +13,7 @@ export class MlsService {
   ) {}
 
   async requestAnalyses(user_id: string, image: Express.Multer.File) {
-    const fileName: string = `${user_id}-${Date.now()}`.toString();
+    const fileName = uuidv4();
 
     const analysis = await this.prisma.analysisLog.create({
       data: {
@@ -37,14 +38,25 @@ export class MlsService {
     };
   }
 
-  async reportAnalyses(@Body() body: ReportAnalysisDto) {
+  async reportAnalyses(body: ReportAnalysisDto) {
+    const originalImageName = body.id;
+
+    // search for AnalysisLog that have that specific picture
+    const analysis = await this.prisma.analysisLog.findUnique({
+      where: {
+        picture: originalImageName,
+      },
+    });
+
+    const problemCount: number = body.data.confidence > 0.5 ? 1 : 0;
+
     await this.prisma.analysisResult.create({
       data: {
-        analysisLogId: body.id,
+        analysisLogId: analysis.id,
         picture: body.image,
         modelResult: body.data,
         category: body.model,
-        problemCount: 0, // TODO: Implement problem count
+        problemCount: problemCount,
       },
     });
 

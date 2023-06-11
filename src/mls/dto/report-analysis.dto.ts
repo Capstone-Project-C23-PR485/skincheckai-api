@@ -2,10 +2,10 @@ import { IsNotEmpty } from 'class-validator';
 
 export class ReportAnalysisDto {
   @IsNotEmpty()
-  id: number;
+  id: string;
 
   @IsNotEmpty()
-  data: object;
+  data: any;
 
   @IsNotEmpty()
   image: string;
