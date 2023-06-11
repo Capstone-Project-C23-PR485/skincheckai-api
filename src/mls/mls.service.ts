@@ -23,7 +23,7 @@ export class MlsService {
     });
 
     await this.storageService.save(
-      'images/' + fileName,
+      'images_uploaded/' + fileName,
       image.mimetype,
       image.buffer,
       [{ name: 'analysisId', value: analysis.id.toString() }],
