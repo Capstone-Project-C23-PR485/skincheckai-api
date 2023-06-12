@@ -45,20 +45,20 @@ export class ProductsService {
     skinType: 'oily' | 'dry' | 'combination' | 'sensitive',
   ) {
     const productType = ['moisturizer', 'sunscreen', 'facewash', 'serum'];
-    const data = {};
+    const data = [];
     for (let i = 0; i < productType.length; i++) {
       const product = await this.prisma.skinCareProduct.findMany({
         where: {
           [skinType]: true,
           type: productType[i],
         },
-        take: 3,
+        take: 1,
         orderBy: {
           rank: 'asc',
         },
       });
 
-      data[productType[i]] = product;
+      data.push(product[0]);
     }
 
     return {
