@@ -53,6 +53,9 @@ export class MlsService {
     });
 
     const problemCount: number = body.data.confidence > 0.5 ? 1 : 0;
+    const skinScore = Math.round(
+      analysis.skinScore - body.data.confidence * 10,
+    );
 
     await this.prisma.analysisResult.create({
       data: {
@@ -61,6 +64,15 @@ export class MlsService {
         modelResult: body.data,
         category: body.model,
         problemCount: problemCount,
+      },
+    });
+
+    await this.prisma.analysisLog.update({
+      where: {
+        id: analysis.id,
+      },
+      data: {
+        skinScore: skinScore,
       },
     });
 

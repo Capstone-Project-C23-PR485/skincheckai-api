@@ -15,14 +15,6 @@ export class LogsService {
         skinScore: true,
         createdAt: true,
         picture: true,
-        analysisResult: {
-          select: {
-            picture: true,
-            problemCount: true,
-            category: true,
-            modelResult: true,
-          },
-        },
       },
     });
 
