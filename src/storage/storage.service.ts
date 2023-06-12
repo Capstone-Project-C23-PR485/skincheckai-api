@@ -8,13 +8,18 @@ export class StorageService {
   private bucket: string;
 
   constructor() {
-    this.storage = new Storage({
-      projectId: StorageConfig.projectId,
-      credentials: {
-        client_email: StorageConfig.client_email,
-        private_key: StorageConfig.private_key,
-      },
-    });
+    // if RUN_ENV is local
+    if (process.env.RUN_ENV === 'local') {
+      this.storage = new Storage({
+        projectId: StorageConfig.projectId,
+        credentials: {
+          client_email: StorageConfig.client_email,
+          private_key: StorageConfig.private_key,
+        },
+      });
+    } else {
+      this.storage = new Storage();
+    }
 
     this.bucket = StorageConfig.mediaBucket;
   }
