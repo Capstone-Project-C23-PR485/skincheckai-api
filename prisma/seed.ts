@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import seedProducts from './seeds/products_seeder';
 import seedArticles from './seeds/articles_seeder';
+
 const prisma = new PrismaClient();
 
 async function main() {
