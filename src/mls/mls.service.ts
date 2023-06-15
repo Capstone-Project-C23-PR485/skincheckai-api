@@ -72,7 +72,7 @@ export class MlsService {
         id: analysis.id,
       },
       data: {
-        skinScore: skinScore,
+        skinScore: skinScore | analysis.skinScore,
       },
     });
 
